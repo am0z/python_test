@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <nav class="navbar kavbar-expand-lg navbar-light bg-light">
+        <form class="form">
+            <div class="input-group">
+                <input value="{{ query }}" name="query" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-outline-success" type="submit">Search</button>
+                </div>
+            </div>
+            <legend class="col-form-label">Ordering</legend>
+            {% for ordering in view.ordering_list %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" id="ordering-{{ ordering }}" type="radio" name="ordering" value="{{ ordering }}" {% if ordering == view.ordering %}checked{% endif %}>
+                    <label class="form-check-label" for="ordering-{{ ordering }}">{{ ordering }}</label>
+                </div>
+            {% endfor %}
+        </form>
+    </nav>
+    <ul class="list-group">
+        {% for client in object_list %}
+            <li class="list-group-item">
+                <div>
+                    <h5>{{ client.name }}</h5>
+                    <small>{{ client.email }}</small>
+                </div>
+                <p>{{ client.suburb }}</p>
+                <small>{{ client.state }}</small>
+                <a class="btn btn-link" href="{% url 'update' client.pk %}">Update</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

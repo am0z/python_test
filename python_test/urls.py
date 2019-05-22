@@ -16,8 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic import TemplateView
+from .views import ClientListView, ClientCreateView, ClientUpdateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name="home.html"))
+    url(r'^$', TemplateView.as_view(template_name="home.html")),
+    url(r'^clients/$', ClientListView.as_view(), name="list"),
+    url(r'^clients/new/$', ClientCreateView.as_view(), name="create"),
+    url(r'^clients/update/(?P<pk>[0-9]+)/$$', ClientUpdateView.as_view(), name="update"),
 ]
